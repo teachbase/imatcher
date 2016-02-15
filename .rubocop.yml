@@ -38,3 +38,6 @@ Lint/AmbiguousRegexpLiteral:
 Metrics/MethodLength:
   Exclude:
     - 'spec/**/*.rb'
+
+Metrics/LineLength:
+  max: 100
