@@ -22,6 +22,15 @@ module Imatcher
         result
       end
 
+      def diff(bg, diff)
+        diff_image = background(bg)
+        diff_image.render_bounds(*calculate_bounds(diff))
+        diff.each do |pixels_pair|
+          pixels_diff(diff_image, *pixels_pair)
+        end
+        create_diff_image(bg, diff_image)
+      end
+
       private
 
       def calculate_bounds(diff)
