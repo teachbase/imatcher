@@ -22,15 +22,15 @@ module Imatcher
     end
 
     def to_grayscale
-      each_pixel do |test_pixel, x, y|
-        self[x, y] = grayscale(brightness(test_pixel).round)
+      each_pixel do |pixel, x, y|
+        self[x, y] = grayscale(brightness(pixel).round)
       end
       self
     end
 
     def with_alpha(value)
-      each_pixel do |test_pixel, x, y|
-        self[x, y] = rgba(r(test_pixel), g(test_pixel), b(test_pixel), value)
+      each_pixel do |pixel, x, y|
+        self[x, y] = rgba(r(pixel), g(pixel), b(pixel), value)
       end
       self
     end
@@ -39,46 +39,8 @@ module Imatcher
       [width, height] == [image.width, image.height]
     end
 
-    def render_bounds(diff)
-      left = xmin(diff) - 1
-      right = xmax(diff) + 1
-      top = ymax(diff) + 1
-      bot = ymin(diff) - 1
+    def render_bounds(left, bot, right, top)
       rect(left, bot, right, top, rgb(255, 0, 0))
-    end
-
-    private
-
-    def xmin(diff)
-      min = width + 1
-      diff.each do |pixels_pair|
-        min = pixels_pair[2] if pixels_pair[2] < min
-      end
-      min
-    end
-
-    def xmax(diff)
-      max = -1
-      diff.each do |pixels_pair|
-        max = pixels_pair[2] if pixels_pair[2] > max
-      end
-      max
-    end
-
-    def ymin(diff)
-      min = height + 1
-      diff.each do |pixels_pair|
-        min = pixels_pair[3] if pixels_pair[3] < min
-      end
-      min
-    end
-
-    def ymax(diff)
-      max = -1
-      diff.each do |pixels_pair|
-        max = pixels_pair[3] if pixels_pair[3] > max
-      end
-      max
     end
   end
 end

@@ -8,23 +8,23 @@ module Imatcher
       end
 
       def score
-        @result.diff.length * 1.0 / @expected.pixels.length
+        @result.diff.length * 1.0 / @result.image.pixels.length
       end
 
-      def self.diff(expected, diff)
-        diff_image = Image.new(expected.width, expected.height, BLACK)
-        diff_image.render_bounds(diff)
+      def diff(bg, diff)
+        diff_image = Image.new(bg.width, bg.height, BLACK)
+        diff_image.render_bounds(*calculate_bounds(diff))
         diff.each do |pixels_pair|
           pixels_diff(diff_image, *pixels_pair)
         end
         diff_image
       end
 
-      def self.pixels_diff(d, a, b, x, y)
-        d[x, y] = d.rgb(
-          (d.r(a) - d.r(b)).abs,
-          (d.g(a) - d.g(b)).abs,
-          (d.b(a) - d.b(b)).abs
+      def pixels_diff(d, a, b, x, y)
+        d[x, y] = rgb(
+          (r(a) - r(b)).abs,
+          (g(a) - g(b)).abs,
+          (b(a) - b(b)).abs
           )
       end
 

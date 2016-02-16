@@ -5,20 +5,35 @@ module Imatcher
 
       attr_reader :result
 
-      def initialize(expected, test, result)
-        @expected = expected
-        @test = test
-        @result = result
+      def initialize(threshold: 0.0)
+        @threshold = threshold
+        @result = Result.new(self, threshold)
       end
 
-      def compare
-        @test.compare_each_pixel(@expected) do |test_pixel, expected_pixel, x, y|
-          next if pixels_equal?(test_pixel, expected_pixel)
-          update_result(test_pixel, expected_pixel, x, y)
+      def compare(a, b)
+        result.image = a
+
+        b.compare_each_pixel(a) do |b_pixel, a_pixel, x, y|
+          next if pixels_equal?(b_pixel, a_pixel)
+          update_result(b_pixel, a_pixel, x, y)
         end
 
-        @result.score = score
-        @result
+        result.score = score
+        result
+      end
+
+      private
+
+      def calculate_bounds(diff)
+        xmin, xmax, ymin, ymax = result.image.width, 0, result.image.height, 0
+        diff.each do |pixels_pair|
+          xmin = pixels_pair[2] if pixels_pair[2] < xmin
+          xmax = pixels_pair[2] if pixels_pair[2] > xmax
+          ymin = pixels_pair[3] if pixels_pair[3] < ymin
+          ymax = pixels_pair[3] if pixels_pair[3] > ymax
+        end
+
+        [xmin - 1, ymin - 1 , xmax + 1, ymax + 1]
       end
     end
   end

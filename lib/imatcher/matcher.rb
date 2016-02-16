@@ -18,14 +18,13 @@ module Imatcher
     end
 
     def compare(path_1, path_2)
-      expected, test = Image.from_file(path_1), Image.from_file(path_2)
-      fail SizesMismatchError, "\nSize mismatch: expected size: " \
-                                     "#{ expected.width }x#{ expected.height }, " \
-                                     "test size: " \
-                                     "#{ test.width }x#{ test.height }" unless expected.sizes_match?(test)
+      a, b = Image.from_file(path_1), Image.from_file(path_2)
+      fail SizesMismatchError, "\nSize mismatch: first image size: " \
+                                     "#{ a.width }x#{ a.height }, " \
+                                     "second image size: " \
+                                     "#{ b.width }x#{ b.height }" unless a.sizes_match?(b)
 
-      result = Result.new(expected, mode, threshold)
-      mode.new(expected, test, result).compare
+      mode.new(threshold: threshold).compare(a, b)
     end
   end
 end

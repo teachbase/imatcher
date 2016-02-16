@@ -1,21 +1,21 @@
 module Imatcher
   class Result
-    attr_accessor :diff, :score
+    attr_accessor :score, :image
+    attr_reader :diff, :mode, :threshold
 
-    def initialize(image, mode, threshold)
-      @image = image
+    def initialize(mode, threshold)
       @score = 0.0
       @diff = []
-      @mode = mode
       @threshold = threshold
+      @mode = mode
     end
 
     def difference_image
-      @mode.diff(@image, @diff)
+      @diff_image ||= mode.diff(image, diff)
     end
 
     def match?
-      @score < @threshold
+      score < threshold
     end
   end
 end
