@@ -1,14 +1,14 @@
 module Imatcher
   class Result
-  	attr_accessor :diff, :score
+    attr_accessor :diff, :score
 
     def initialize(image, mode, threshold)
       @image = image
       @score = 0.0
-      @diff = Array.new
+      @diff = []
       @mode = mode
       @threshold = threshold
-    end 
+    end
 
     def difference_image
       @mode.diff(@image, @diff)

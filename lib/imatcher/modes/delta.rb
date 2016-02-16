@@ -8,7 +8,7 @@ module Imatcher
       end
 
       def update_result(a, b, x, y)
-        d = euclid(a, b)/(MAX * Math.sqrt(3))
+        d = euclid(a, b) / (MAX * Math.sqrt(3))
         @result.diff << [a, b, x, y, d]
         @result.score += d
       end
@@ -34,9 +34,9 @@ module Imatcher
 
       def euclid(a, b)
         Math.sqrt(
-          (r(a) - r(b)) ** 2 +
-          (g(a) - g(b)) ** 2 +
-          (b(a) - b(b)) ** 2
+          (r(a) - r(b))**2 +
+          (g(a) - g(b))**2 +
+          (b(a) - b(b))**2
         )
       end
     end

@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'pry'
-gem 'chunky_png'
 
 local_gemfile = 'Gemfile.local'
 

@@ -19,10 +19,10 @@ module Imatcher
 
     def compare(path_1, path_2)
       expected, test = Image.from_file(path_1), Image.from_file(path_2)
-      raise SizesMismatchError.new("\nSize mismatch: expected size: " \
+      fail SizesMismatchError, "\nSize mismatch: expected size: " \
                                      "#{ expected.width }x#{ expected.height }, " \
                                      "test size: " \
-                                     "#{ test.width }x#{ test.height }") unless expected.sizes_match?(test)
+                                     "#{ test.width }x#{ test.height }" unless expected.sizes_match?(test)
 
       result = Result.new(expected, mode, threshold)
       mode.new(expected, test, result).compare

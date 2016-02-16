@@ -11,5 +11,5 @@ RSpec.configure do |config|
 end
 
 def image_path(name)
-	"#{File.dirname(__FILE__)}/fixtures/#{name}.png"
+  "#{File.dirname(__FILE__)}/fixtures/#{name}.png"
 end

@@ -22,9 +22,9 @@ module Imatcher
 
       def self.pixels_diff(d, a, b, x, y)
         d[x, y] = d.rgb(
-            (d.r(a) - d.r(b)).abs,
-            (d.g(a) - d.g(b)).abs,
-            (d.b(a) - d.b(b)).abs
+          (d.r(a) - d.r(b)).abs,
+          (d.g(a) - d.g(b)).abs,
+          (d.b(a) - d.b(b)).abs
           )
       end
 

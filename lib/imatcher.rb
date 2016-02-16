@@ -2,7 +2,7 @@ require "imatcher/version"
 
 module Imatcher
   class SizesMismatchError < StandardError
-	end
+  end
 
   require 'imatcher/matcher'
   require 'imatcher/color_methods'
