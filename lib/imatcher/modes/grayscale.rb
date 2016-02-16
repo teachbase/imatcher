@@ -3,6 +3,8 @@ module Imatcher
     require 'imatcher/modes/base'
 
     class Grayscale < Base
+      private
+
       def pixels_equal?(a, b)
         alpha = color_similar?(a(a), a(b))
         brightness = color_similar?(brightness(a), brightness(b))
@@ -13,17 +15,20 @@ module Imatcher
         @result.diff << [a, b, x, y]
       end
 
-      def score
-        @result.diff.length * 1.0 / @expected.pixels.length
+      def background(bg)
+        bg.to_grayscale
       end
 
-      def self.save_diff(expected, diff, path)
-        diff_image = expected.to_grayscale
-        diff_image.render_bounds(diff)
-        diff.each do |pixels_pair|
-          diff_image[pixels_pair[2], pixels_pair[3]] = diff_image.rgb(255, 0, 0)
-        end
-        diff_image.save path
+      def pixels_diff(d, _, _, x, y)
+        d[x, y] = rgb(255, 0, 0)
+      end
+
+      def create_diff_image(bg, diff_image)
+        diff_image
+      end
+
+      def score
+        @result.diff.length * 1.0 / @result.image.pixels.length
       end
 
       def color_similar?(a, b)
