@@ -9,6 +9,8 @@ module Imatcher
         @delta_score = 0.0
       end
 
+      private
+
       def pixels_equal?(a, b)
         a == b
       end
@@ -18,16 +20,6 @@ module Imatcher
         @result.diff << [a, b, x, y, d]
         @delta_score += d
       end
-
-      def score
-        @delta_score / result.image.pixels.length
-      end
-
-      def pixels_diff(d, _, _, x, y, a)
-        d[x, y] = rgba(MAX, 0, 0, (a * MAX).round)
-      end
-
-      private
 
       def background(bg)
         Image.new(bg.width, bg.height, WHITE).with_alpha(0)
@@ -43,6 +35,14 @@ module Imatcher
 
       def create_diff_image(bg, diff_image)
         bg.to_grayscale.compose!(diff_image, 0, 0)
+      end
+
+      def pixels_diff(d, _, _, x, y, a)
+        d[x, y] = rgba(MAX, 0, 0, (a * MAX).round)
+      end
+
+      def score
+        @delta_score / result.image.pixels.length
       end
     end
   end

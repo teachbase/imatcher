@@ -42,9 +42,9 @@ res.match? #=> true
 res.score #=> 0.0
 
 # Return diff image object
-res.diff #=> Imatcher::Image
+res.difference_image #=> Imatcher::Image
 
-res.diff.save(new_path)
+res.difference_image.save(new_path)
 
 # without explicit matcher
 res = Imatcher.compare(path_1, path_2, options) 
