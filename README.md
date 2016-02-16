@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/teachbase/imatcher.svg?branch=master)](https://travis-ci.org/teachbase/imatcher)
+
 # Imatcher
 
 TBD
