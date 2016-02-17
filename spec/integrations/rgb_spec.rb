@@ -6,7 +6,7 @@ describe Imatcher::Modes::RGB do
   subject { Imatcher.compare(path_1, path_2, options) }
   let(:options) { {} }
 
-  context "with similar images" do
+  context "with darker" do
     it "score equals to 1" do
       expect(subject.score).to eq 1
     end
@@ -15,8 +15,8 @@ describe Imatcher::Modes::RGB do
   context "with different images" do
     let(:path_2) { image_path "b" }
 
-    it "score around 0.97" do
-      expect(subject.score).to be_within(0.005).of(0.97)
+    it "score around 0.016" do
+      expect(subject.score).to be_within(0.001).of(0.016)
     end
 
     it "creates correct difference image" do

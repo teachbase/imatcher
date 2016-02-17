@@ -8,16 +8,16 @@ describe Imatcher::Modes::Grayscale do
   let(:options) { { mode: :grayscale } }
 
   context "darker image" do
-    it "score around 0.7" do
-      expect(subject.score).to be_within(0.05).of(0.75)
+    it "score around 0.95" do
+      expect(subject.score).to be_within(0.05).of(0.95)
     end
   end
 
   context "different images" do
     let(:path_2) { image_path "b" }
 
-    it "score around 0.02" do
-      expect(subject.score).to be_within(0.0005).of(0.009)
+    it "score around 0.005" do
+      expect(subject.score).to be_within(0.001).of(0.005)
     end
 
     it "creates correct difference image" do
@@ -37,8 +37,8 @@ describe Imatcher::Modes::Grayscale do
     context "different image" do
       let(:path_2) { image_path "b" }
 
-      it "score around 0.97" do
-        expect(subject.score).to be_within(0.005).of(0.97)
+      it "score around 0.016" do
+        expect(subject.score).to be_within(0.001).of(0.016)
       end
     end
 
@@ -55,16 +55,16 @@ describe Imatcher::Modes::Grayscale do
     let(:options) { { mode: :grayscale, tolerance: 8 } }
 
     context "darker image" do
-      it "score around 0.9" do
-        expect(subject.score).to be_within(0.005).of(0.9)
+      it "score around 0.96" do
+        expect(subject.score).to be_within(0.005).of(0.96)
       end
     end
 
     context "different image" do
       let(:path_2) { image_path "b" }
 
-      it "score around 0.027" do
-        expect(subject.score).to be_within(0.0005).of(0.027)
+      it "score around 0.006" do
+        expect(subject.score).to be_within(0.0005).of(0.006)
       end
     end
   end

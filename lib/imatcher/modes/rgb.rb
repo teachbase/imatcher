@@ -10,6 +10,7 @@ module Imatcher
       end
 
       def update_result(a, b, x, y)
+        super
         @result.diff << [a, b, x, y]
       end
 
@@ -18,7 +19,7 @@ module Imatcher
       end
 
       def create_diff_image(bg, diff_image)
-        bg.to_grayscale.compose!(diff_image, 0, 0)
+        diff_image
       end
 
       def pixels_diff(d, a, b, x, y)

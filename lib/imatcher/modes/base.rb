@@ -3,7 +3,7 @@ module Imatcher
     class Base # :nodoc:
       include ColorMethods
 
-      attr_reader :result, :threshold
+      attr_reader :result, :threshold, :bounds
 
       def initialize(threshold: 0.0)
         @threshold = threshold
@@ -12,6 +12,7 @@ module Imatcher
 
       def compare(a, b)
         result.image = a
+        @bounds = [0, 0, result.image.width - 1, result.image.height - 1]
 
         b.compare_each_pixel(a) do |b_pixel, a_pixel, x, y|
           next if pixels_equal?(b_pixel, a_pixel)
@@ -24,28 +25,25 @@ module Imatcher
 
       def diff(bg, diff)
         diff_image = background(bg)
-        diff_image.render_bounds(*calculate_bounds(diff))
         diff.each do |pixels_pair|
           pixels_diff(diff_image, *pixels_pair)
         end
-        create_diff_image(bg, diff_image)
+        create_diff_image(bg, diff_image).render_bounds(*bounds)
       end
 
       def score
         @result.diff.length.to_f / @result.image.pixels.length
       end
 
-      # rubocop:disable Metrics/AbcSize
-      def calculate_bounds(diff)
-        xmin, xmax, ymin, ymax = result.image.width, 0, result.image.height, 0
-        diff.each do |pixels_pair|
-          xmin = pixels_pair[2] if pixels_pair[2] < xmin
-          xmax = pixels_pair[2] if pixels_pair[2] > xmax
-          ymin = pixels_pair[3] if pixels_pair[3] < ymin
-          ymax = pixels_pair[3] if pixels_pair[3] > ymax
-        end
+      def update_result(*_args, x, y)
+        update_bounds(x, y)
+      end
 
-        [xmin - 1, ymin - 1, xmax + 1, ymax + 1]
+      def update_bounds(x, y)
+        bounds[0] = [x, bounds[0]].max
+        bounds[1] = [y, bounds[1]].max
+        bounds[2] = [x, bounds[2]].min
+        bounds[3] = [y, bounds[3]].min
       end
     end
   end

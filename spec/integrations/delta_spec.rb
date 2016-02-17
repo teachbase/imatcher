@@ -7,9 +7,9 @@ describe Imatcher::Modes::Delta do
 
   let(:options) { { mode: :delta } }
 
-  context "with similar images" do
-    it "score around 0.094" do
-      expect(subject.score).to be_within(0.0005).of(0.094)
+  context "with darker image" do
+    it "score around 0.075" do
+      expect(subject.score).to be_within(0.005).of(0.075)
     end
 
     context "with custom threshold" do
@@ -32,12 +32,20 @@ describe Imatcher::Modes::Delta do
   context "with different images" do
     let(:path_2) { image_path "b" }
 
-    it "score around 0.0195" do
-      expect(subject.score).to be_within(0.0005).of(0.0195)
+    it "score around 0.0046" do
+      expect(subject.score).to be_within(0.0001).of(0.0046)
     end
 
     it "creates correct difference image" do
       expect(subject.difference_image).to eq(Imatcher::Image.from_file(image_path("delta_diff")))
+    end
+
+    context "with high tolerance" do
+      let(:options) { { mode: :delta, tolerance: 0.1 } }
+
+      it "score around 0.0038" do
+        expect(subject.score).to be_within(0.0001).of(0.0038)
+      end
     end
   end
 end
