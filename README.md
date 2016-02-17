@@ -2,7 +2,8 @@
 
 # Imatcher
 
-TBD
+Compare PNG images in pure Ruby (uses [ChunkyPNG](https://github.com/wvanbergen/chunky_png)) using different algorithms.
+This is an utility library for image regression testing.
 
 ## Installation
 
@@ -20,6 +21,37 @@ Or install it yourself as:
 
     $ gem install imatcher
 
+## Modes
+
+Imatcher supports different ways (_modes_) of comparing images.
+
+Source images used in examples:
+
+<img src="https://raw.githubusercontent.com/teachbase/imatcher/master/spec/fixtures/a.png" width="300" />
+<img src="https://raw.githubusercontent.com/teachbase/imatcher/master/spec/fixtures/b.png" width="300" />
+
+### Base (RGB) mode
+
+Compare pixels by values, resulting score is a ratio of unequal pixels.
+Resulting diff represents per-channel difference.
+
+<img src="https://raw.githubusercontent.com/teachbase/imatcher/master/spec/fixtures/rgb_diff.png" width="300" />
+
+### Grayscale mode
+
+Compare pixels as grayscale (by brightness and alpha), resulting score is a ratio of unequal pixels (with respect to provided tolerance).
+
+Resulting diff contains grayscale version of the first image with different pixels highlighted in red and red bounding box.
+
+<img src="https://raw.githubusercontent.com/teachbase/imatcher/master/spec/fixtures/grayscale_diff.png" width="300" />
+
+### Delta
+
+Compare pixels using [Delta E](https://en.wikipedia.org/wiki/Color_difference) distance.
+Resulting diff contains grayscale version of the first image with different pixels highlighted in red (with respect to diff score).
+
+<img src="https://raw.githubusercontent.com/teachbase/imatcher/master/spec/fixtures/delta_diff.png" width="300" />
+
 ## Usage
 
 ```ruby
@@ -32,8 +64,8 @@ cmp.mode #=> Imatcher::Modes::RGB
 cmp = Imatcher::Matcher.new threshold: 0.05
 cmp.threshold #=> 0.05
 
-# create matcher with specific mode
-cmp = Imatcher::Matcher.new mode: :grayscale
+# create zero-tolerance grayscale matcher 
+cmp = Imatcher::Matcher.new mode: :grayscale, tolerance: 0
 cmp.mode #=> Imatcher::Modes::Grayscale
 
 res = cmp.compare(path_1, path_2)
