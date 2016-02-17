@@ -1,5 +1,6 @@
 require "imatcher/version"
 
+# Compare PNG images using different algorithms
 module Imatcher
   class SizesMismatchError < StandardError
   end

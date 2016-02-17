@@ -1,9 +1,9 @@
 module Imatcher
   module Modes
-    class Base
+    class Base # :nodoc:
       include ColorMethods
 
-      attr_reader :result
+      attr_reader :result, :threshold
 
       def initialize(threshold: 0.0)
         @threshold = threshold
@@ -31,8 +31,11 @@ module Imatcher
         create_diff_image(bg, diff_image)
       end
 
-      private
+      def score
+        @result.diff.length.to_f / @result.image.pixels.length
+      end
 
+      # rubocop:disable Metrics/AbcSize
       def calculate_bounds(diff)
         xmin, xmax, ymin, ymax = result.image.width, 0, result.image.height, 0
         diff.each do |pixels_pair|
@@ -42,7 +45,7 @@ module Imatcher
           ymax = pixels_pair[3] if pixels_pair[3] > ymax
         end
 
-        [xmin - 1, ymin - 1 , xmax + 1, ymax + 1]
+        [xmin - 1, ymin - 1, xmax + 1, ymax + 1]
       end
     end
   end

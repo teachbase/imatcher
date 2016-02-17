@@ -1,10 +1,10 @@
 module Imatcher
-  module Modes
+  module Modes # :nodoc:
     require 'imatcher/modes/base'
 
+    # Compare pixels by values.
+    # Resulting image contains per-channel differences.
     class RGB < Base
-      private
-
       def pixels_equal?(a, b)
         a == b
       end
@@ -26,11 +26,7 @@ module Imatcher
           (r(a) - r(b)).abs,
           (g(a) - g(b)).abs,
           (b(a) - b(b)).abs
-          )
-      end
-
-      def score
-        @result.diff.length * 1.0 / @result.image.pixels.length
+        )
       end
     end
   end

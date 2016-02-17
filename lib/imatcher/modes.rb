@@ -1,5 +1,5 @@
 module Imatcher
-  module Modes
+  module Modes # :nodoc:
     require 'imatcher/modes/rgb'
     require 'imatcher/modes/grayscale'
     require 'imatcher/modes/delta'

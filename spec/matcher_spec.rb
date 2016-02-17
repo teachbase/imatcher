@@ -7,20 +7,26 @@ describe Imatcher::Matcher do
     context "without options" do
       let(:options) { {} }
 
-      it { expect(subject.threshold).to eq 0 }
-      it { expect(subject.mode).to eq Imatcher::Modes::RGB }
+      it { expect(subject.mode.threshold).to eq 0 }
+      it { expect(subject.mode).to be_a Imatcher::Modes::RGB }
     end
 
     context "with custom threshold" do
       let(:options) { { threshold: 0.1 } }
 
-      it { expect(subject.threshold).to eq 0.1 }
+      it { expect(subject.mode.threshold).to eq 0.1 }
+    end
+
+    context "with custom options" do
+      let(:options) { { mode: :grayscale, tolerance: 0 } }
+
+      it { expect(subject.mode.tolerance).to eq 0 }
     end
 
     context "with custom mode" do
       let(:options) { { mode: :delta } }
 
-      it { expect(subject.mode).to eq Imatcher::Modes::Delta }
+      it { expect(subject.mode).to be_a Imatcher::Modes::Delta }
     end
   end
 

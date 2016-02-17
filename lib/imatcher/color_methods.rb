@@ -1,7 +1,7 @@
 require 'chunky_png'
 
 module Imatcher
-  module ColorMethods
+  module ColorMethods # :nodoc:
     include ChunkyPNG::Color
 
     def brightness(a)

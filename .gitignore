@@ -23,6 +23,7 @@
 .settings
 .tmproj
 Thumbs.db
+*.gem
 
 /.bundle/
 /.yardoc

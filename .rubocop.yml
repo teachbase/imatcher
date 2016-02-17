@@ -32,6 +32,9 @@ Style/BlockDelimiters:
   Exclude:
     - 'spec/**/*.rb'
 
+Style/ParallelAssignment:
+  Enabled: false
+
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
@@ -41,3 +44,5 @@ Metrics/MethodLength:
 
 Metrics/LineLength:
   max: 100
+  Exclude:
+    - 'spec/**/*.rb'

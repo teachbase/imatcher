@@ -1,4 +1,5 @@
 module Imatcher
+  # Matcher contains information about compare mode
   class Matcher
     require 'imatcher/image'
     require 'imatcher/result'
@@ -8,23 +9,25 @@ module Imatcher
       rgb: 'RGB',
       delta: 'Delta',
       grayscale: 'Grayscale'
-    }
+    }.freeze
 
     attr_reader :threshold, :mode
 
     def initialize(options = {})
-      @threshold = options[:threshold] || 0.0
-      @mode = Modes.const_get(MODES[options.fetch(:mode, :rgb)])
+      mode_type = options.delete(:mode) || :rgb
+      @mode = Modes.const_get(MODES[mode_type]).new(options)
     end
 
     def compare(path_1, path_2)
-      a, b = Image.from_file(path_1), Image.from_file(path_2)
-      fail SizesMismatchError, "\nSize mismatch: first image size: " \
-                                     "#{ a.width }x#{ a.height }, " \
-                                     "second image size: " \
-                                     "#{ b.width }x#{ b.height }" unless a.sizes_match?(b)
+      a = Image.from_file(path_1)
+      b = Image.from_file(path_2)
+      raise SizesMismatchError,
+            "Size mismatch: first image size: " \
+            "#{a.width}x#{a.height}, " \
+            "second image size: " \
+            "#{b.width}x#{b.height}" unless a.sizes_match?(b)
 
-      mode.new(threshold: threshold).compare(a, b)
+      mode.compare(a, b)
     end
   end
 end

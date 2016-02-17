@@ -1,4 +1,5 @@
 module Imatcher
+  # Object containing comparison score and diff image
   class Result
     attr_accessor :score, :image
     attr_reader :diff, :mode, :threshold
@@ -14,8 +15,9 @@ module Imatcher
       @diff_image ||= mode.diff(image, diff)
     end
 
+    # Returns true iff score less or equals to threshold
     def match?
-      score < threshold
+      score <= threshold
     end
   end
 end

@@ -1,6 +1,7 @@
 require 'imatcher/color_methods'
 
 module Imatcher
+  # Extend ChunkyPNG::Image with some methods.
   class Image < ChunkyPNG::Image
     include ColorMethods
 

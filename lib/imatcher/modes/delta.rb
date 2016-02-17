@@ -1,7 +1,8 @@
 module Imatcher
-  module Modes
+  module Modes # :nodoc:
     require 'imatcher/modes/base'
 
+    # Compare pixels using Delta E distance.
     class Delta < Base
       def initialize(threshold: 0.0)
         @threshold = threshold
@@ -37,7 +38,7 @@ module Imatcher
         bg.to_grayscale.compose!(diff_image, 0, 0)
       end
 
-      def pixels_diff(d, _, _, x, y, a)
+      def pixels_diff(d, *_args, x, y, a)
         d[x, y] = rgba(MAX, 0, 0, (a * MAX).round)
       end
 

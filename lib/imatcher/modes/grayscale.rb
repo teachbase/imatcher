@@ -1,9 +1,21 @@
 module Imatcher
-  module Modes
+  module Modes # :nodoc:
     require 'imatcher/modes/base'
 
+    # Compare pixels by alpha and brightness.
+    #
+    # Options:
+    # - tolerance - defines the maximum allowed difference for alpha/brightness
+    # (default value is 16)
     class Grayscale < Base
-      private
+      DEFAULT_TOLERANCE = 16
+
+      attr_reader :tolerance
+
+      def initialize(options)
+        @tolerance = options.delete(:tolerance) || DEFAULT_TOLERANCE
+        super(options)
+      end
 
       def pixels_equal?(a, b)
         alpha = color_similar?(a(a), a(b))
@@ -19,22 +31,17 @@ module Imatcher
         bg.to_grayscale
       end
 
-      def pixels_diff(d, _, _, x, y)
+      def pixels_diff(d, _a, _b, x, y)
         d[x, y] = rgb(255, 0, 0)
       end
 
-      def create_diff_image(bg, diff_image)
+      def create_diff_image(_bg, diff_image)
         diff_image
       end
 
-      def score
-        @result.diff.length * 1.0 / @result.image.pixels.length
-      end
-
       def color_similar?(a, b)
-        tolerance = 16
         d = (a - b).abs
-        d < tolerance
+        d <= tolerance
       end
     end
   end
