@@ -43,5 +43,9 @@ module Imatcher
     def render_bounds(left, bot, right, top)
       rect(left, bot, right, top, rgb(255, 0, 0))
     end
+
+    def inspect
+      "Image:#{object_id}<#{width}x#{height}>"
+    end
   end
 end

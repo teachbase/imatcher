@@ -18,9 +18,9 @@ module Imatcher
       @mode = Modes.const_get(MODES[mode_type]).new(options)
     end
 
-    def compare(path_1, path_2)
-      a = Image.from_file(path_1)
-      b = Image.from_file(path_2)
+    def compare(a, b)
+      a = Image.from_file(a) unless a.is_a?(Image)
+      b = Image.from_file(b) unless b.is_a?(Image)
       raise SizesMismatchError,
             "Size mismatch: first image size: " \
             "#{a.width}x#{a.height}, " \

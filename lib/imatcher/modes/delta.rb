@@ -4,10 +4,12 @@ module Imatcher
 
     # Compare pixels using Delta E distance.
     class Delta < Base
-      def initialize(threshold: 0.0)
-        @threshold = threshold
-        @result = Result.new(self, threshold)
+      attr_reader :tolerance
+
+      def initialize(options)
+        @tolerance = options.delete(:tolerance) || 0.01
         @delta_score = 0.0
+        super(options)
       end
 
       private
@@ -18,8 +20,10 @@ module Imatcher
 
       def update_result(a, b, x, y)
         d = euclid(a, b) / (MAX * Math.sqrt(3))
+        return if d <= tolerance
         @result.diff << [a, b, x, y, d]
         @delta_score += d
+        super
       end
 
       def background(bg)

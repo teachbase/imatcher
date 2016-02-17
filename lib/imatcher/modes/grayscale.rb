@@ -24,6 +24,7 @@ module Imatcher
       end
 
       def update_result(a, b, x, y)
+        super
         @result.diff << [a, b, x, y]
       end
 
