@@ -1,7 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'rspec'
-require 'pry-byebug'
+require 'pry-byebug' if RUBY_VERSION >= "2.0.0" && RUBY_PLATFORM != 'java'
 
 if ENV['COVER']
   require 'simplecov'

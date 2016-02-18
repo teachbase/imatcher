@@ -1,4 +1,8 @@
-require 'chunky_png'
+if RUBY_PLATFORM == 'java'
+  require "chunky_png"
+else
+  require "oily_png"
+end
 
 module Imatcher
   module ColorMethods # :nodoc:
