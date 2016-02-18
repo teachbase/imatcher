@@ -47,5 +47,19 @@ module Imatcher
     def inspect
       "Image:#{object_id}<#{width}x#{height}>"
     end
+
+    def highlight_rectangle(rect_bounds, color = :red)
+      return self if rect_bounds.empty?
+      color = case color
+              when :red
+                rgb(255, 0, 0)
+              when :blue
+                rgb(0, 0, 255)
+              when :green
+                rgb(0, 255, 0)
+              end
+      rect(*rect_bounds, color)
+      self
+    end
   end
 end

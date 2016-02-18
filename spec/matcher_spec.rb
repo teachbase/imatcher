@@ -33,13 +33,39 @@ describe Imatcher::Matcher do
   describe "compare" do
     let(:path_1) { image_path "very_small" }
     let(:path_2) { image_path "very_small" }
-    subject { Imatcher::Matcher.new.compare(path_1, path_2) }
+    let(:options) { {} }
+    subject { Imatcher.compare(path_1, path_2, options) }
 
     it { expect(subject).to be_a Imatcher::Result }
 
     context "when sizes mismatch" do
       let(:path_2) { image_path "small" }
-      it { expect { subject }.to raise_error(Imatcher::SizesMismatchError) }
+      it { expect { subject }.to raise_error Imatcher::SizesMismatchError }
+    end
+
+    context "with negative exclude area bounds" do
+      let(:options) { { exclude_area: [-1, -1, -1, -1] } }
+      it { expect { subject }.to raise_error ArgumentError }
+    end
+
+    context "with big exclude area bounds" do
+      let(:options) { { exclude_area: [100, 100, 100, 100] } }
+      it { expect { subject }.to raise_error ArgumentError }
+    end
+
+    context "with negative include area bounds" do
+      let(:options) { { include_area: [-1, -1, -1, -1] } }
+      it { expect { subject }.to raise_error ArgumentError }
+    end
+
+    context "with big include area bounds" do
+      let(:options) { { include_area: [100, 100, 100, 100] } }
+      it { expect { subject }.to raise_error ArgumentError }
+    end
+
+    context "with wrong include and exclude areas combination" do
+      let(:options) { { include_area: [1, 1, 2, 2], exclude_area: [0, 0, 1, 1] } }
+      it { expect { subject }.to raise_error ArgumentError }
     end
   end
 end
