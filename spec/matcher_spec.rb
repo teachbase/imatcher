@@ -43,28 +43,28 @@ describe Imatcher::Matcher do
       it { expect { subject }.to raise_error Imatcher::SizesMismatchError }
     end
 
-    context "with negative exclude area bounds" do
-      let(:options) { { exclude_area: [-1, -1, -1, -1] } }
+    context "with negative exclude rect bounds" do
+      let(:options) { { exclude_rect: [-1, -1, -1, -1] } }
       it { expect { subject }.to raise_error ArgumentError }
     end
 
-    context "with big exclude area bounds" do
-      let(:options) { { exclude_area: [100, 100, 100, 100] } }
+    context "with big exclude rect bounds" do
+      let(:options) { { exclude_rect: [100, 100, 100, 100] } }
       it { expect { subject }.to raise_error ArgumentError }
     end
 
-    context "with negative include area bounds" do
-      let(:options) { { include_area: [-1, -1, -1, -1] } }
+    context "with negative include rect bounds" do
+      let(:options) { { include_rect: [-1, -1, -1, -1] } }
       it { expect { subject }.to raise_error ArgumentError }
     end
 
-    context "with big include area bounds" do
-      let(:options) { { include_area: [100, 100, 100, 100] } }
+    context "with big include rect bounds" do
+      let(:options) { { include_rect: [100, 100, 100, 100] } }
       it { expect { subject }.to raise_error ArgumentError }
     end
 
-    context "with wrong include and exclude areas combination" do
-      let(:options) { { include_area: [1, 1, 2, 2], exclude_area: [0, 0, 1, 1] } }
+    context "with wrong include and exclude rects combination" do
+      let(:options) { { include_rect: [1, 1, 2, 2], exclude_rect: [0, 0, 1, 1] } }
       it { expect { subject }.to raise_error ArgumentError }
     end
   end
