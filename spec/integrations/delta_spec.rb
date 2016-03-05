@@ -18,13 +18,13 @@ describe Imatcher::Modes::Delta do
       context "below score" do
         let(:options) { { mode: :delta, threshold: 0.01 } }
 
-        it { expect(subject).to eq false }
+        it { expect(subject).to be_falsey }
       end
 
       context "above score" do
         let(:options) { { mode: :delta, threshold: 0.1 } }
 
-        it { expect(subject).to eq true }
+        it { expect(subject).to be_truthy }
       end
     end
   end

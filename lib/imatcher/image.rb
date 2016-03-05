@@ -13,11 +13,13 @@ module Imatcher
       end
     end
 
-    def compare_each_pixel(image)
-      height.times do |y|
-        next if image.row(y) == row(y)
-        row(y).each_with_index do |pixel, x|
-          yield(pixel, image[x, y], x, y)
+    def compare_each_pixel(image, area: nil)
+      area = bounding_rect if area.nil?
+      (area.top..area.bot).each do |y|
+        range = (area.left..area.right)
+        next if image.row(y).slice(range) == row(y).slice(range)
+        (area.left..area.right).each do |x|
+          yield(self[x, y], image[x, y], x, y)
         end
       end
     end
@@ -40,12 +42,19 @@ module Imatcher
       [width, height] == [image.width, image.height]
     end
 
-    def render_bounds(left, bot, right, top)
-      rect(left, bot, right, top, rgb(255, 0, 0))
-    end
-
     def inspect
       "Image:#{object_id}<#{width}x#{height}>"
+    end
+
+    def highlight_rectangle(rect, color = :red)
+      fail ArgumentError, "Undefined color: #{color}" unless respond_to?(color)
+      return self if rect.nil?
+      rect(*rect.bounds, send(color))
+      self
+    end
+
+    def bounding_rect
+      Rectangle.new(0, 0, width - 1, height - 1)
     end
   end
 end

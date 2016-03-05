@@ -47,7 +47,7 @@ module Imatcher
       end
 
       def score
-        @delta_score / result.image.pixels.length
+        @delta_score / area
       end
     end
   end

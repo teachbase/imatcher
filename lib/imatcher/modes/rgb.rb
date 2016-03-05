@@ -18,7 +18,7 @@ module Imatcher
         Image.new(bg.width, bg.height, BLACK)
       end
 
-      def create_diff_image(bg, diff_image)
+      def create_diff_image(_bg, diff_image)
         diff_image
       end
 
