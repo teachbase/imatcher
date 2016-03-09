@@ -15,6 +15,7 @@ module Imatcher
 
     def initialize(options = {})
       mode_type = options.delete(:mode) || :rgb
+      fail ArgumentError, "Undefined mode: #{ mode_type }" unless MODES.keys.include?(mode_type)
       @mode = Modes.const_get(MODES[mode_type]).new(options)
     end
 

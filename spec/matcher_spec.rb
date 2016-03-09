@@ -28,6 +28,12 @@ describe Imatcher::Matcher do
 
       it { expect(subject.mode).to be_a Imatcher::Modes::Delta }
     end
+
+    context "with undefined mode" do
+      let(:options) { { mode: :gamma } }
+
+      it { expect { subject }.to raise_error(ArgumentError) }
+    end
   end
 
   describe "compare" do
