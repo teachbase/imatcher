@@ -88,21 +88,21 @@ res = Imatcher::Matcher.new(options).compare(path_1, path_2)
 
 ```
 
-## Excluding area
+## Excluding rectangle
 
 <img src="https://raw.githubusercontent.com/teachbase/imatcher/master/spec/fixtures/a.png" width="300" />
 <img src="https://raw.githubusercontent.com/teachbase/imatcher/master/spec/fixtures/a1.png" width="300" />
 
-You can exclude area from comparing by passing `:exclude_area` to `compare`.
+You can exclude rectangle from comparing by passing `:exclude_rect` to `compare`.
 E.g., if `path_1` and `path_2` contain images above
 ```ruby
-Imatcher.compare(path_1, path_2, exclude_area: [200, 150, 275, 200]).match? # => true
+Imatcher.compare(path_1, path_2, exclude_rect: [200, 150, 275, 200]).match? # => true
 ```
 `[200, 150, 275, 200]` is array of two vertices of rectangle -- (200, 150) is left-top vertex and (275, 200) is right-bottom.
 
-## Including area
+## Including rectangle
 
-You can set bounds of comparing by passing `:include_area` to `compare` with array similar to previous example
+You can set bounds of comparing by passing `:include_rect` to `compare` with array similar to previous example
 
 ## Contributing
 
