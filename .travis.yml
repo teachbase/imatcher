@@ -7,3 +7,8 @@ rvm:
 
 notifications:
   email: false
+
+before_install:
+  - gem install bundler
+
+script: bundle exec rake
