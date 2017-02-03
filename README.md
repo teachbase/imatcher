@@ -96,7 +96,7 @@ res = Imatcher::Matcher.new(options).compare(path_1, path_2)
 You can exclude rectangle from comparing by passing `:exclude_rect` to `compare`.
 E.g., if `path_1` and `path_2` contain images above
 ```ruby
-Imatcher.compare(path_1, path_2, exclude_area: [200, 150, 275, 200]).match? # => true
+Imatcher.compare(path_1, path_2, exclude_rect: [200, 150, 275, 200]).match? # => true
 ```
 `[200, 150, 275, 200]` is array of two vertices of rectangle -- (200, 150) is left-top vertex and (275, 200) is right-bottom.
 
