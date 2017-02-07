@@ -14,8 +14,6 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files`.split($/)
   spec.require_paths = ["lib"]
 
-  spec.extensions = %w(ext/mkrf_conf.rb)
-
   spec.add_dependency "chunky_png", "~> 1.3.5"
 
   spec.add_development_dependency "simplecov", ">= 0.3.8"

@@ -1,7 +1,8 @@
-if RUBY_PLATFORM == 'java'
-  require "chunky_png"
-else
-  require "oily_png"
+require "chunky_png"
+
+begin
+  require "oily_png" unless RUBY_PLATFORM == 'java'
+rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
 
 module Imatcher

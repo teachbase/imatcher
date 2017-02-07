@@ -21,6 +21,8 @@ Or install it yourself as:
 
     $ gem install imatcher
 
+Additionally, you may want to install [oily_png](https://github.com/wvanbergen/oily_png) to improve performance when using MRI. Just install it globally or add to your Gemfile.
+
 ## Modes
 
 Imatcher supports different ways (_modes_) of comparing images.
