@@ -9,7 +9,7 @@ module Imatcher
       def initialize(options)
         @tolerance = options.delete(:tolerance) || 0.01
         @delta_score = 0.0
-        super(options)
+        super(**options)
       end
 
       private

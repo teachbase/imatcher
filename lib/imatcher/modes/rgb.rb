@@ -5,6 +5,10 @@ module Imatcher
     # Compare pixels by values.
     # Resulting image contains per-channel differences.
     class RGB < Base
+      def initialize(options)
+        super(**options)
+      end
+
       def pixels_equal?(a, b)
         a == b
       end
