@@ -14,7 +14,7 @@ module Imatcher
 
       def initialize(options)
         @tolerance = options.delete(:tolerance) || DEFAULT_TOLERANCE
-        super(options)
+        super(**options)
       end
 
       def pixels_equal?(a, b)
