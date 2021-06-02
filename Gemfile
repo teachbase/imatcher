@@ -4,7 +4,7 @@ gem "rake", "~> 10.0"
 gem "rspec", "~> 3.0"
 
 if RUBY_PLATFORM =~ /java/
-  gem "chunky_png", "~> 1.3.5"
+  gem "chunky_png", "~> 1.3"
 else
   gem "oily_png", "~> 1.2"
 end
