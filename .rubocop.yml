@@ -1,48 +1,25 @@
+require:
+  - standard/cop/block_single_line_braces
+
+inherit_gem:
+  standard: config/base.yml
+
 AllCops:
-  # Include gemspec and Rakefile
-  Include:
-    - 'lib/**/*.rb'
-    - 'lib/**/*.rake'
-    - 'spec/**/*.rb'
   Exclude:
-    - 'bin/**/*'
-    - 'spec/dummy/**/*'
-  Rails:
-    Enabled: false
+    - 'bin/*'
+    - 'tmp/**/*'
+    - 'Gemfile'
+    - 'vendor/**/*'
+    - 'gemfiles/**/*'
+    - 'lib/.rbnext/**/*'
+    - 'lib/generators/**/templates/*.rb'
+    - '.github/**/*'
   DisplayCopNames: true
-  StyleGuideCopsOnly: false
+  SuggestExtensions: false
+  TargetRubyVersion: 2.6
 
-Style/AccessorMethodName:
+Standard/BlockSingleLineBraces:
   Enabled: false
 
-Style/TrivialAccessors:
-  Enabled: false
-
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*.rb'
-
-Style/StringLiterals: 
-  Enabled: false
-
-Style/SpaceInsideStringInterpolation:
-  EnforcedStyle: no_space
-
-Style/BlockDelimiters:
-  Exclude:
-    - 'spec/**/*.rb'
-
-Style/ParallelAssignment:
-  Enabled: false
-
-Lint/AmbiguousRegexpLiteral:
-  Enabled: false
-
-Metrics/MethodLength:
-  Exclude:
-    - 'spec/**/*.rb'
-
-Metrics/LineLength:
-  max: 100
-  Exclude:
-    - 'spec/**/*.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: true

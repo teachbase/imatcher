@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Imatcher
   module Modes
     class Base # :nodoc:
-      require 'imatcher/rectangle'
+      require "imatcher/rectangle"
       include ColorMethods
 
       attr_reader :result, :threshold, :bounds, :exclude_rect, :include_rect
@@ -33,9 +35,9 @@ module Imatcher
         diff.each do |pixels_pair|
           pixels_diff(diff_image, *pixels_pair)
         end
-        create_diff_image(bg, diff_image).
-          highlight_rectangle(bounds).
-          highlight_rectangle(include_rect, :green)
+        create_diff_image(bg, diff_image)
+          .highlight_rectangle(bounds)
+          .highlight_rectangle(include_rect, :green)
       end
 
       def score

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Imatcher
   # Object containing comparison score and diff image
   class Result

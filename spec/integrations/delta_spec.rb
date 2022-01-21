@@ -1,11 +1,13 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 describe Imatcher::Modes::Delta do
   let(:path_1) { image_path "a" }
   let(:path_2) { image_path "darker" }
-  subject { Imatcher.compare(path_1, path_2, options) }
+  subject { Imatcher.compare(path_1, path_2, **options) }
 
-  let(:options) { { mode: :delta } }
+  let(:options) { {mode: :delta} }
 
   context "with darker image" do
     it "score around 0.075" do
@@ -13,16 +15,16 @@ describe Imatcher::Modes::Delta do
     end
 
     context "with custom threshold" do
-      subject { Imatcher.compare(path_1, path_2, options).match? }
+      subject { Imatcher.compare(path_1, path_2, **options).match? }
 
       context "below score" do
-        let(:options) { { mode: :delta, threshold: 0.01 } }
+        let(:options) { {mode: :delta, threshold: 0.01} }
 
         it { expect(subject).to be_falsey }
       end
 
       context "above score" do
-        let(:options) { { mode: :delta, threshold: 0.1 } }
+        let(:options) { {mode: :delta, threshold: 0.1} }
 
         it { expect(subject).to be_truthy }
       end
@@ -41,7 +43,7 @@ describe Imatcher::Modes::Delta do
     end
 
     context "with high tolerance" do
-      let(:options) { { mode: :delta, tolerance: 0.1 } }
+      let(:options) { {mode: :delta, tolerance: 0.1} }
 
       it "score around 0.0038" do
         expect(subject.score).to be_within(0.0001).of(0.0038)

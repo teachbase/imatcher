@@ -1,10 +1,20 @@
+# frozen_string_literal: true
+
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec
+begin
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new
 
-task :console do
-  sh 'pry -r ./lib/imatcher.rb'
+  RuboCop::RakeTask.new("rubocop:md") do |task|
+    task.options << %w[-c .rubocop-md.yml]
+  end
+rescue LoadError
+  task(:rubocop) {}
+  task("rubocop:md") {}
 end
+
+task default: %w[rubocop rubocop:md spec]

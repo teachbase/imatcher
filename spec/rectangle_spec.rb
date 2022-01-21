@@ -1,9 +1,11 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 describe Imatcher::Rectangle do
   let(:rect) { described_class.new(0, 0, 9, 9) }
 
-  describe 'area' do
+  describe "area" do
     subject { rect.area }
 
     it { expect(subject).to eq 100 }

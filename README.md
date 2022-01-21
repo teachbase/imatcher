@@ -1,4 +1,5 @@
-[![Gem Version](https://badge.fury.io/rb/imatcher.svg)](https://rubygems.org/gems/imatcher) [![Build Status](https://travis-ci.org/teachbase/imatcher.svg?branch=master)](https://travis-ci.org/teachbase/imatcher)
+[![Gem Version](https://badge.fury.io/rb/imatcher.svg)](https://rubygems.org/gems/imatcher)
+[![Build](https://github.com/teachbase/imatcher/workflows/Build/badge.svg)](https://github.com/teachbase/imatcher/actions)
 
 # Imatcher
 
@@ -10,16 +11,19 @@ This is an utility library for image regression testing.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'imatcher'
+gem "imatcher"
 ```
 
-And then execute:
+Or adding to your project:
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install imatcher
+```ruby
+# my-cool-gem.gemspec
+Gem::Specification.new do |spec|
+  # ...
+  spec.add_dependency "imatcher"
+  # ...
+end
+```
 
 Additionally, you may want to install [oily_png](https://github.com/wvanbergen/oily_png) to improve performance when using MRI. Just install it globally or add to your Gemfile.
 
@@ -66,7 +70,7 @@ cmp.mode #=> Imatcher::Modes::RGB
 cmp = Imatcher::Matcher.new threshold: 0.05
 cmp.threshold #=> 0.05
 
-# create zero-tolerance grayscale matcher 
+# create zero-tolerance grayscale matcher
 cmp = Imatcher::Matcher.new mode: :grayscale, tolerance: 0
 cmp.mode #=> Imatcher::Modes::Grayscale
 
@@ -83,7 +87,7 @@ res.difference_image #=> Imatcher::Image
 res.difference_image.save(new_path)
 
 # without explicit matcher
-res = Imatcher.compare(path_1, path_2, options) 
+res = Imatcher.compare(path_1, path_2, options)
 
 # equals to
 res = Imatcher::Matcher.new(options).compare(path_1, path_2)
@@ -113,4 +117,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/teachb
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

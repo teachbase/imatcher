@@ -1,4 +1,6 @@
-require 'imatcher/color_methods'
+# frozen_string_literal: true
+
+require "imatcher/color_methods"
 
 module Imatcher
   # Extend ChunkyPNG::Image with some methods.
