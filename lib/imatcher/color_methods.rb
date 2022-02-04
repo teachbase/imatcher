@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "chunky_png"
 
 begin
-  require "oily_png" unless RUBY_PLATFORM == 'java'
-rescue LoadError # rubocop:disable Lint/HandleExceptions
+  require "oily_png" unless RUBY_PLATFORM == "java"
+rescue LoadError
 end
 
 module Imatcher

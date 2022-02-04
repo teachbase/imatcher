@@ -1,11 +1,13 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 describe Imatcher::Modes::Grayscale do
   let(:path_1) { image_path "a" }
   let(:path_2) { image_path "darker" }
-  subject { Imatcher.compare(path_1, path_2, options) }
+  subject { Imatcher.compare(path_1, path_2, **options) }
 
-  let(:options) { { mode: :grayscale } }
+  let(:options) { {mode: :grayscale} }
 
   context "darker image" do
     it "score around 0.95" do
@@ -26,7 +28,7 @@ describe Imatcher::Modes::Grayscale do
   end
 
   context "with zero tolerance" do
-    let(:options) { { mode: :grayscale, tolerance: 0 } }
+    let(:options) { {mode: :grayscale, tolerance: 0} }
 
     context "darker image" do
       it "score equals to 1" do
@@ -52,7 +54,7 @@ describe Imatcher::Modes::Grayscale do
   end
 
   context "with small tolerance" do
-    let(:options) { { mode: :grayscale, tolerance: 8 } }
+    let(:options) { {mode: :grayscale, tolerance: 8} }
 
     context "darker image" do
       it "score around 0.96" do

@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module Imatcher
   module Modes # :nodoc:
-    require 'imatcher/modes/base'
+    require "imatcher/modes/base"
 
     # Compare pixels using Delta E distance.
     class Delta < Base
       attr_reader :tolerance
 
-      def initialize(options)
+      def initialize(**options)
         @tolerance = options.delete(:tolerance) || 0.01
         @delta_score = 0.0
-        super(options)
+        super(**options)
       end
 
       private

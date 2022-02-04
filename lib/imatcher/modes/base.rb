@@ -1,16 +1,19 @@
+# frozen_string_literal: true
+
 module Imatcher
   module Modes
     class Base # :nodoc:
-      require 'imatcher/rectangle'
+      require "imatcher/rectangle"
       include ColorMethods
 
-      attr_reader :result, :threshold, :bounds, :exclude_rect, :include_rect
+      attr_reader :result, :threshold, :lower_threshold, :bounds, :exclude_rect, :include_rect
 
-      def initialize(threshold: 0.0, exclude_rect: nil, include_rect: nil)
+      def initialize(threshold: 0.0, lower_threshold: 0.0, exclude_rect: nil, include_rect: nil)
         @include_rect = Rectangle.new(*include_rect) unless include_rect.nil?
         @exclude_rect = Rectangle.new(*exclude_rect) unless exclude_rect.nil?
         @threshold = threshold
-        @result = Result.new(self, threshold)
+        @lower_threshold = lower_threshold
+        @result = Result.new(self, threshold: threshold, lower_threshold: lower_threshold)
       end
 
       def compare(a, b)
@@ -33,9 +36,9 @@ module Imatcher
         diff.each do |pixels_pair|
           pixels_diff(diff_image, *pixels_pair)
         end
-        create_diff_image(bg, diff_image).
-          highlight_rectangle(bounds).
-          highlight_rectangle(include_rect, :green)
+        create_diff_image(bg, diff_image)
+          .highlight_rectangle(bounds)
+          .highlight_rectangle(include_rect, :green)
       end
 
       def score

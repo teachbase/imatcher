@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Imatcher # :nodoc:
-  VERSION = "0.1.9".freeze
+  VERSION = "1.0.0-dev"
 end

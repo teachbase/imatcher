@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Imatcher
   module Modes # :nodoc:
-    require 'imatcher/modes/base'
+    require "imatcher/modes/base"
 
     # Compare pixels by alpha and brightness.
     #
@@ -12,9 +14,9 @@ module Imatcher
 
       attr_reader :tolerance
 
-      def initialize(options)
+      def initialize(**options)
         @tolerance = options.delete(:tolerance) || DEFAULT_TOLERANCE
-        super(options)
+        super(**options)
       end
 
       def pixels_equal?(a, b)

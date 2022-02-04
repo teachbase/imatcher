@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 module Imatcher
   # Object containing comparison score and diff image
   class Result
     attr_accessor :score, :image
-    attr_reader :diff, :mode, :threshold
+    attr_reader :diff, :mode, :threshold, :lower_threshold
 
-    def initialize(mode, threshold)
+    def initialize(mode, threshold:, lower_threshold:)
       @score = 0.0
       @diff = []
       @threshold = threshold
+      @lower_threshold = lower_threshold
       @mode = mode
     end
 
@@ -17,7 +20,7 @@ module Imatcher
 
     # Returns true iff score less or equals to threshold
     def match?
-      score <= threshold
+      score <= threshold && score >= lower_threshold
     end
   end
 end

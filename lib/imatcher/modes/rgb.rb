@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Imatcher
   module Modes # :nodoc:
-    require 'imatcher/modes/base'
+    require "imatcher/modes/base"
 
     # Compare pixels by values.
     # Resulting image contains per-channel differences.

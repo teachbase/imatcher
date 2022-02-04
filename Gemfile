@@ -1,17 +1,17 @@
-source 'https://rubygems.org'
+# frozen_string_literal: true
 
-gem "rake", "~> 10.0"
-gem "rspec", "~> 3.0"
+source "https://rubygems.org"
 
-if RUBY_PLATFORM =~ /java/
-  gem "chunky_png", "~> 1.3.5"
-else
-  gem "oily_png", "~> 1.2"
-end
+gem "pry-byebug", platform: :mri
 
-gem 'pry-byebug' if RUBY_VERSION >= "2.0.0" && RUBY_PLATFORM != 'java'
-local_gemfile = 'Gemfile.local'
+gem "oily_png"
+
+gemspec
+
+eval_gemfile "gemfiles/rubocop.gemfile"
+
+local_gemfile = "#{File.dirname(__FILE__)}/Gemfile.local"
 
 if File.exist?(local_gemfile)
-  eval(File.read(local_gemfile)) # rubocop:disable Lint/Eval
+  eval(File.read(local_gemfile)) # rubocop:disable Security/Eval
 end

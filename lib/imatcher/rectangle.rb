@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Imatcher
   class Rectangle
     attr_accessor :left, :top, :right, :bot
