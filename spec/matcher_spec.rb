@@ -13,10 +13,11 @@ describe Imatcher::Matcher do
       it { expect(subject.mode).to be_a Imatcher::Modes::RGB }
     end
 
-    context "with custom threshold" do
-      let(:options) { {threshold: 0.1} }
+    context "with custom thresholds" do
+      let(:options) { {threshold: 0.1, lower_threshold: 0.04} }
 
       it { expect(subject.mode.threshold).to eq 0.1 }
+      it { expect(subject.mode.lower_threshold).to eq 0.04 }
     end
 
     context "with custom options" do

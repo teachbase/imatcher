@@ -28,6 +28,12 @@ describe Imatcher::Modes::Delta do
 
         it { expect(subject).to be_truthy }
       end
+
+      context "with lower threshold" do
+        let(:options) { {mode: :delta, threshold: 0.1, lower_threshold: 0.09} }
+
+        it { expect(subject).to be_falsey }
+      end
     end
   end
 

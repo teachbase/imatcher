@@ -13,7 +13,7 @@ module Imatcher
       grayscale: "Grayscale"
     }.freeze
 
-    attr_reader :threshold, :mode
+    attr_reader :mode
 
     def initialize(**options)
       mode_type = options.delete(:mode) || :rgb

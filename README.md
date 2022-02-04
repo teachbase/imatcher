@@ -70,6 +70,10 @@ cmp.mode #=> Imatcher::Modes::RGB
 cmp = Imatcher::Matcher.new threshold: 0.05
 cmp.threshold #=> 0.05
 
+# or with a lower threshold (in case you want to test that there is some difference)
+cmp = Imatcher::Matcher.new lower_threshold: 0.01
+cmp.lower_threshold #=> 0.01
+
 # create zero-tolerance grayscale matcher
 cmp = Imatcher::Matcher.new mode: :grayscale, tolerance: 0
 cmp.mode #=> Imatcher::Modes::Grayscale
